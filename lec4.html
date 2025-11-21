@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to JavaScript - Lecture 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .code-example {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .output {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .interactive {
+            background-color: #e3f2fd;
+            border: 2px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Introduction to JavaScript</h1>
+    <p><strong>Lecture 4</strong> - A comprehensive guide for first-year students</p>
+
+    <!-- Section 1: Basic Syntax -->
+    <div class="section">
+        <h2>1. 🎯 JavaScript Basic Syntax</h2>
+        
+        <h3>1.1 Comments</h3>
+        <div class="code-example">
+// Single line comment<br>
+/* Multi-line comment<br>
+   can span multiple lines */
+        </div>
+
+        <h3>1.2 Variables</h3>
+        <div class="code-example">
+// Different ways to declare variables<br>
+var oldWay = "I'm old school";<br>
+let modernWay = "I'm the modern way";<br>
+const constant = "I cannot be changed";
+        </div>
+        
+        <h3>1.3 Console Output</h3>
+        <div class="interactive">
+            <button onclick="demonstrateSyntax()">🚀 Run Syntax Examples</button>
+            <div id="syntax-output" class="output" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Section 2: Data Types -->
+    <div class="section">
+        <h2>2. 🔢 JavaScript Data Types</h2>
+        
+        <h3>2.1 Primitive Types</h3>
+        <div class="code-example">
+// Numbers<br>
+let age = 20;<br>
+let temperature = -5.5;<br><br>
+// Strings<br>
+let name = "Alice";<br>
+let message = 'Hello World';<br>
+let template = `My name is ${name}`;<br><br>
+// Boolean<br>
+let isStudent = true;<br>
+let isGraduated = false;<br><br>
+// Undefined and Null<br>
+let notDefined;<br>
+let empty = null;
+        </div>
+
+        <h3>2.2 Complex Types</h3>
+        <div class="code-example">
+// Arrays<br>
+let fruits = ["apple", "banana", "orange"];<br>
+let numbers = [1, 2, 3, 4, 5];<br><br>
+// Objects<br>
+let student = {<br>
+&nbsp;&nbsp;name: "John",<br>
+&nbsp;&nbsp;age: 19,<br>
+&nbsp;&nbsp;major: "Computer Science"<br>
+};
+        </div>
+
+        <div class="interactive">
+            <button onclick="demonstrateDataTypes()">🔍 Explore Data Types</button>
+            <div id="datatype-output" class="output" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Section 3: Conditions -->
+    <div class="section">
+        <h2>3. 🤔 Conditional Statements</h2>
+        
+        <h3>3.1 If-Else Statement</h3>
+        <div class="code-example">
+let score = 85;<br><br>
+if (score >= 90) {<br>
+&nbsp;&nbsp;console.log("A grade - Excellent!");<br>
+} else if (score >= 80) {<br>
+&nbsp;&nbsp;console.log("B grade - Good job!");<br>
+} else if (score >= 70) {<br>
+&nbsp;&nbsp;console.log("C grade - Keep trying!");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("Need improvement");<br>
+}
+        </div>
+
+        <h3>3.2 Switch Statement</h3>
+        <div class="code-example">
+let day = "Monday";<br><br>
+switch (day) {<br>
+&nbsp;&nbsp;case "Monday":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Start of work week");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case "Friday":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("TGIF!");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case "Saturday":<br>
+&nbsp;&nbsp;case "Sunday":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekend!");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Regular day");<br>
+}
+        </div>
+
+        <div class="interactive">
+            <label>Enter your test score: </label>
+            <input type="number" id="score-input" placeholder="0-100" min="0" max="100">
+            <button onclick="checkGrade()">📊 Check Grade</button>
+            <div id="grade-output" class="output" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Section 4: Loops -->
+    <div class="section">
+        <h2>4. 🔄 Loop Statements</h2>
+        
+        <h3>4.1 For Loop</h3>
+        <div class="code-example">
+// Basic for loop<br>
+for (let i = 1; i <= 5; i++) {<br>
+&nbsp;&nbsp;console.log("Count: " + i);<br>
+}<br><br>
+// For loop with arrays<br>
+let colors = ["red", "green", "blue"];<br>
+for (let i = 0; i < colors.length; i++) {<br>
+&nbsp;&nbsp;console.log(colors[i]);<br>
+}
+        </div>
+
+        <h3>4.2 While Loop</h3>
+        <div class="code-example">
+let count = 0;<br>
+while (count < 3) {<br>
+&nbsp;&nbsp;console.log("While loop: " + count);<br>
+&nbsp;&nbsp;count++;<br>
+}
+        </div>
+
+        <h3>4.3 For...of and For...in Loops</h3>
+        <div class="code-example">
+// For...of (values)<br>
+let animals = ["cat", "dog", "bird"];<br>
+for (let animal of animals) {<br>
+&nbsp;&nbsp;console.log(animal);<br>
+}<br><br>
+// For...in (properties)<br>
+let person = {name: "Alice", age: 25};<br>
+for (let key in person) {<br>
+&nbsp;&nbsp;console.log(key + ": " + person[key]);<br>
+}
+        </div>
+
+        <div class="interactive">
+            <label>Generate multiplication table for: </label>
+            <input type="number" id="table-input" placeholder="Enter number" min="1" max="12">
+            <button onclick="generateTable()">🧮 Generate Table</button>
+            <div id="table-output" class="output" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Section 5: Event Handling -->
+    <div class="section">
+        <h2>5. ⚡ Event Handling</h2>
+        
+        <h3>5.1 Click Events</h3>
+        <div class="interactive">
+            <button onclick="sayHello()">👋 Say Hello</button>
+            <button onclick="changeColor()">🎨 Change Background</button>
+            <button onclick="showTime()">⏰ Show Current Time</button>
+            <div id="event-output" class="output" style="display:none;"></div>
+        </div>
+
+        <h3>5.2 Input Events</h3>
+        <div class="interactive">
+            <label>Type something: </label>
+            <input type="text" id="text-input" onkeyup="showTyping()" placeholder="Start typing...">
+            <div id="typing-output" class="output" style="display:none;"></div>
+        </div>
+
+        <h3>5.3 Form Events</h3>
+        <div class="interactive">
+            <form onsubmit="handleSubmit(event)">
+                <label>Your Name: </label>
+                <input type="text" id="name-input" required>
+                <br><br>
+                <label>Your Age: </label>
+                <input type="number" id="age-input" min="1" max="120" required>
+                <br><br>
+                <label>Favorite Subject: </label>
+                <select id="subject-input">
+                    <option value="Math">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="English">English</option>
+                    <option value="Computer Science">Computer Science</option>
+                </select>
+                <br><br>
+                <button type="submit">📝 Submit Form</button>
+            </form>
+            <div id="form-output" class="output" style="display:none;"></div>
+        </div>
+
+        <h3>5.4 Mouse Events</h3>
+        <div class="interactive">
+            <div id="mouse-box" style="width:200px; height:100px; background-color:#f0f0f0; border:2px solid #ccc; text-align:center; line-height:100px; cursor:pointer;"
+                 onmouseover="handleMouseOver()" 
+                 onmouseout="handleMouseOut()" 
+                 onclick="handleClick()">
+                Hover or Click Me!
+            </div>
+            <div id="mouse-output" class="output" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="section">
+        <h2>6. 📋 Summary & Practice</h2>
+        <div class="interactive">
+            <h3>🎮 Mini Challenge: Number Guessing Game</h3>
+            <p>I'm thinking of a number between 1 and 10. Can you guess it?</p>
+            <input type="number" id="guess-input" min="1" max="10" placeholder="Your guess">
+            <button onclick="checkGuess()">🎯 Submit Guess</button>
+            <button onclick="resetGame()">🔄 New Game</button>
+            <div id="game-output" class="output" style="display:none;"></div>
+        </div>
+
+        <h3>📚 Key Takeaways:</h3>
+        <ul>
+            <li>JavaScript is <strong>case-sensitive</strong> and uses <strong>semicolons</strong> to end statements</li>
+            <li>Variables can be declared with <code>var</code>, <code>let</code>, or <code>const</code></li>
+            <li>JavaScript has dynamic typing - variables can change types</li>
+            <li>Use conditionals (<code>if/else</code>, <code>switch</code>) to control program flow</li>
+            <li>Loops (<code>for</code>, <code>while</code>) help repeat actions</li>
+            <li>Event handlers make web pages interactive</li>
+        </ul>
+    </div>
+
+    <script>
+        // Global variables for the game
+        let secretNumber = Math.floor(Math.random() * 10) + 1;
+        let guessCount = 0;
+
+        // Section 1: Syntax Examples
+        function demonstrateSyntax() {
+            const output = document.getElementById('syntax-output');
+            output.style.display = 'block';
+            
+            // Demonstrate variable declarations
+            var oldStyle = "I'm declared with var";
+            let modernStyle = "I'm declared with let";
+            const immutable = "I'm declared with const";
+            
+            output.innerHTML = `
+                <h4>Console Output Examples:</h4>
+                <p><strong>Old style variable:</strong> ${oldStyle}</p>
+                <p><strong>Modern style variable:</strong> ${modernStyle}</p>
+                <p><strong>Constant variable:</strong> ${immutable}</p>
+                <p><strong>Current time:</strong> ${new Date().toLocaleTimeString()}</p>
+            `;
+            
+            // Also log to console for students to see in developer tools
+            console.log("=== Syntax Examples ===");
+            console.log("Old style:", oldStyle);
+            console.log("Modern style:", modernStyle);
+            console.log("Constant:", immutable);
+        }
+
+        // Section 2: Data Types Demo
+        function demonstrateDataTypes() {
+            const output = document.getElementById('datatype-output');
+            output.style.display = 'block';
+            
+            // Different data types
+            let num = 42;
+            let str = "Hello, JavaScript!";
+            let bool = true;
+            let arr = [1, 2, 3, "mixed", true];
+            let obj = { name: "Student", grade: "A", courses: 5 };
+            let undef;
+            let nullVar = null;
+            
+            output.innerHTML = `
+                <h4>Data Type Examples:</h4>
+                <p><strong>Number:</strong> ${num} (type: ${typeof num})</p>
+                <p><strong>String:</strong> "${str}" (type: ${typeof str})</p>
+                <p><strong>Boolean:</strong> ${bool} (type: ${typeof bool})</p>
+                <p><strong>Array:</strong> [${arr.join(', ')}] (type: ${typeof arr})</p>
+                <p><strong>Object:</strong> ${JSON.stringify(obj)} (type: ${typeof obj})</p>
+                <p><strong>Undefined:</strong> ${undef} (type: ${typeof undef})</p>
+                <p><strong>Null:</strong> ${nullVar} (type: ${typeof nullVar})</p>
+            `;
+            
+            console.log("=== Data Types Demo ===");
+            console.log("Number:", num, typeof num);
+            console.log("String:", str, typeof str);
+            console.log("Boolean:", bool, typeof bool);
+            console.log("Array:", arr, typeof arr);
+            console.log("Object:", obj, typeof obj);
+        }
+
+        // Section 3: Grade Checker
+        function checkGrade() {
+            const score = parseFloat(document.getElementById('score-input').value);
+            const output = document.getElementById('grade-output');
+            
+            if (isNaN(score) || score < 0 || score > 100) {
+                output.innerHTML = '<p style="color: red;">Please enter a valid score between 0 and 100!</p>';
+                output.style.display = 'block';
+                return;
+            }
+            
+            let grade, message;
+            
+            if (score >= 90) {
+                grade = 'A';
+                message = 'Excellent work! 🌟';
+            } else if (score >= 80) {
+                grade = 'B';
+                message = 'Good job! 👍';
+            } else if (score >= 70) {
+                grade = 'C';
+                message = 'Keep practicing! 📚';
+            } else if (score >= 60) {
+                grade = 'D';
+                message = 'Need more effort! ⚡';
+            } else {
+                grade = 'F';
+                message = 'Don\'t give up! 💪';
+            }
+            
+            output.innerHTML = `
+                <h4>Grade Result:</h4>
+                <p><strong>Score:</strong> ${score}/100</p>
+                <p><strong>Grade:</strong> ${grade}</p>
+                <p><strong>Message:</strong> ${message}</p>
+            `;
+            output.style.display = 'block';
+        }
+
+        // Section 4: Multiplication Table
+        function generateTable() {
+            const number = parseInt(document.getElementById('table-input').value);
+            const output = document.getElementById('table-output');
+            
+            if (isNaN(number) || number < 1) {
+                output.innerHTML = '<p style="color: red;">Please enter a valid positive number!</p>';
+                output.style.display = 'block';
+                return;
+            }
+            
+            let tableHTML = `<h4>Multiplication Table for ${number}:</h4><ul>`;
+            
+            for (let i = 1; i <= 10; i++) {
+                tableHTML += `<li>${number} × ${i} = ${number * i}</li>`;
+            }
+            
+            tableHTML += '</ul>';
+            output.innerHTML = tableHTML;
+            output.style.display = 'block';
+        }
+
+        // Section 5: Event Handling Functions
+        function sayHello() {
+            const output = document.getElementById('event-output');
+            output.innerHTML = '<p>👋 Hello there! Welcome to JavaScript events!</p>';
+            output.style.display = 'block';
+        }
+
+        function changeColor() {
+            const colors = ['#ffebee', '#f3e5f5', '#e8f5e9', '#fff3e0', '#e3f2fd'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+            
+            const output = document.getElementById('event-output');
+            output.innerHTML = `<p>🎨 Background color changed to ${randomColor}!</p>`;
+            output.style.display = 'block';
+        }
+
+        function showTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString();
+            
+            const output = document.getElementById('event-output');
+            output.innerHTML = `<p>⏰ Current time: ${timeString}</p>`;
+            output.style.display = 'block';
+        }
+
+        function showTyping() {
+            const text = document.getElementById('text-input').value;
+            const output = document.getElementById('typing-output');
+            
+            if (text.length === 0) {
+                output.style.display = 'none';
+            } else {
+                output.innerHTML = `
+                    <p><strong>You typed:</strong> "${text}"</p>
+                    <p><strong>Character count:</strong> ${text.length}</p>
+                    <p><strong>Word count:</strong> ${text.trim().split(' ').length}</p>
+                `;
+                output.style.display = 'block';
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+            
+            const name = document.getElementById('name-input').value;
+            const age = document.getElementById('age-input').value;
+            const subject = document.getElementById('subject-input').value;
+            const output = document.getElementById('form-output');
+            
+            output.innerHTML = `
+                <h4>Form Submitted Successfully! 🎉</h4>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Age:</strong> ${age} years old</p>
+                <p><strong>Favorite Subject:</strong> ${subject}</p>
+                <p><em>Data processed with JavaScript!</em></p>
+            `;
+            output.style.display = 'block';
+        }
+
+        function handleMouseOver() {
+            const box = document.getElementById('mouse-box');
+            const output = document.getElementById('mouse-output');
+            
+            box.style.backgroundColor = '#e3f2fd';
+            box.innerHTML = 'Mouse is over me! 🖱️';
+            
+            output.innerHTML = '<p>🖱️ Mouse entered the box!</p>';
+            output.style.display = 'block';
+        }
+
+        function handleMouseOut() {
+            const box = document.getElementById('mouse-box');
+            const output = document.getElementById('mouse-output');
+            
+            box.style.backgroundColor = '#f0f0f0';
+            box.innerHTML = 'Hover or Click Me!';
+            
+            output.innerHTML = '<p>👋 Mouse left the box!</p>';
+            output.style.display = 'block';
+        }
+
+        function handleClick() {
+            const output = document.getElementById('mouse-output');
+            output.innerHTML = '<p>🎯 Box was clicked!</p>';
+            output.style.display = 'block';
+        }
+
+        // Section 6: Number Guessing Game
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guess-input').value);
+            const output = document.getElementById('game-output');
+            guessCount++;
+            
+            if (isNaN(guess) || guess < 1 || guess > 10) {
+                output.innerHTML = '<p style="color: red;">Please enter a number between 1 and 10!</p>';
+                output.style.display = 'block';
+                return;
+            }
+            
+            let message;
+            if (guess === secretNumber) {
+                message = `<p style="color: green;"><strong>🎉 Congratulations!</strong><br>
+                          You guessed ${secretNumber} correctly in ${guessCount} tries!</p>`;
+            } else if (guess < secretNumber) {
+                message = `<p style="color: orange;">📈 Too low! Try a higher number.<br>
+                          Attempts: ${guessCount}</p>`;
+            } else {
+                message = `<p style="color: orange;">📉 Too high! Try a lower number.<br>
+                          Attempts: ${guessCount}</p>`;
+            }
+            
+            output.innerHTML = message;
+            output.style.display = 'block';
+            
+            // Clear input for next guess
+            document.getElementById('guess-input').value = '';
+        }
+
+        function resetGame() {
+            secretNumber = Math.floor(Math.random() * 10) + 1;
+            guessCount = 0;
+            document.getElementById('guess-input').value = '';
+            
+            const output = document.getElementById('game-output');
+            output.innerHTML = '<p>🔄 New game started! I\'m thinking of a new number...</p>';
+            output.style.display = 'block';
+            
+            console.log("New secret number generated:", secretNumber); // For debugging
+        }
+
+        // Initialize the page
+        window.onload = function() {
+            console.log("=== JavaScript Lecture Demo Page Loaded ===");
+            console.log("Open Developer Tools (F12) to see console outputs!");
+        };
+    </script>
+</body>
+</html>
