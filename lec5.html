@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Lecture 5 - Comprehensive jQuery Introduction</title>
+	<!-- jQuery CDN (with SRI + crossorigin for best practice) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<style>
+		body { font-family: Arial, sans-serif; margin:0; background:#f7f9fc; color:#222; }
+		header { background:#283593; color:#fff; padding:25px 30px; }
+		header h1 { margin:0; font-size:28px; }
+		header p { margin:6px 0 0; font-size:14px; opacity:0.9; }
+		main { max-width:1200px; margin:0 auto; padding:25px 30px 60px; }
+		.section { background:#fff; margin:18px 0; border-radius:10px; padding:22px 26px; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
+		.section h2 { margin-top:0; border-left:6px solid #283593; padding-left:10px; }
+		pre, code { font-family: Consolas, 'Courier New', monospace; font-size:13px; }
+		pre { background:#272c34; color:#e3e9f1; padding:14px 16px; border-radius:6px; overflow:auto; line-height:1.5; }
+		.inline-code { background:#eee; padding:2px 5px; border-radius:4px; }
+		.demo-box { border:1px solid #d0d7e2; background:#fafcff; padding:14px 16px; border-radius:8px; margin:12px 0; }
+		.output { background:#e8f5e9; border-left:5px solid #43a047; padding:12px 14px; margin-top:10px; display:none; border-radius:4px; font-size:14px; }
+		button, .btn { cursor:pointer; background:#3949ab; color:#fff; border:none; padding:8px 16px; border-radius:6px; margin:4px; font-size:13px; transition:.2s; }
+		button:hover, .btn:hover { background:#5c6bc0; }
+		.grid { display:flex; flex-wrap:wrap; gap:14px; }
+		.card { flex:1 1 240px; background:#fafafa; border:1px solid #e0e0e0; padding:12px 14px; border-radius:8px; }
+		.highlight { background:#fff9c4; }
+		.notice { background:#e3f2fd; border-left:5px solid #2196f3; padding:10px 12px; border-radius:4px; margin:10px 0; font-size:14px; }
+		table { width:100%; border-collapse:collapse; margin-top:10px; }
+		td, th { border:1px solid #ddd; padding:6px 8px; text-align:left; }
+		th { background:#e3e7ef; }
+		.fade-target, .slide-target { padding:10px; background:#ffe0b2; border:1px solid #fb8c00; border-radius:6px; }
+		.animate-box { width:80px; height:80px; background:#66bb6a; border-radius:8px; position:relative; }
+		.flex-center { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+		.challenge { background:#fff3e0; border-left:6px solid #ff9800; padding:12px 16px; border-radius:6px; margin:14px 0; }
+		footer { text-align:center; padding:30px 10px; font-size:13px; color:#555; }
+		a.ref { color:#3949ab; text-decoration:none; }
+		a.ref:hover { text-decoration:underline; }
+		.hidden { display:none !important; }
+		.success { background:#c8e6c9 !important; }
+		.error { background:#ffcdd2 !important; }
+		.tag { display:inline-block; background:#283593; color:#fff; padding:2px 6px; border-radius:4px; font-size:11px; margin-right:4px; }
+		.plugin-target { padding:10px; background:#ede7f6; border:1px solid #b39ddb; border-radius:6px; margin-top:8px; }
+	</style>
+</head>
+<body>
+<header>
+	<h1>Lecture 5: jQuery Essentials & Interactive Examples</h1>
+	<p>Designed for first-year students – learn by observing, clicking, and modifying.</p>
+</header>
+<main>
+	<div class="section" id="intro">
+		<h2>1. What is jQuery?</h2>
+		<p><strong>jQuery</strong> is a fast, small JavaScript library that makes tasks like <em>HTML document traversal</em>, <em>manipulation</em>, <em>event handling</em>, <em>animation</em>, and <em>AJAX</em> much simpler with an easy-to-use API that works across many browsers.</p>
+		<div class="notice">Core idea: <code>$(selector)</code> finds elements, then you chain methods to act on them.</div>
+		<pre><code>// Basic document ready pattern (wait until DOM prepared)
+$(document).ready(function() {
+	console.log('jQuery is ready!');
+});
+
+// Selecting all paragraphs and changing text color
+$('p').css('color', 'darkslateblue');
+
+// Event: clicking a button
+$('#demoButton').on('click', function() {
+	alert('Button clicked!');
+});
+</code></pre>
+	</div>
+	<!-- Full jQuery Lecture Content -->
+	<div class="section" id="setup">
+		<h2>2. Setup & Document Ready</h2>
+		<p>Use <code>$(document).ready()</code> OR the shorthand <code>$(function(){ ... })</code> to run code once the DOM is fully parsed.</p>
+		<div class="demo-box">
+			<button id="readyCheckBtn">Check Ready State</button>
+			<div id="readyOutput" class="output"></div>
+		</div>
+		<pre><code>// Long form
+$(document).ready(function(){
+    console.log('Ready (long form)');
+});
+// Shorthand
+$(function(){
+    console.log('Ready (shorthand)');
+});
+</code></pre>
+	</div>
+
+	<div class="section" id="selectors">
+		<h2>3. Selectors</h2>
+		<p>Selectors let you find elements. They mirror CSS plus extras like <code>:contains()</code>, <code>:first</code>, <code>:last</code>, <code>:even</code>.</p>
+		<div class="grid" id="selectorGrid">
+			<div class="card"> <span class="tag">Class</span> <code>$('.item')</code> </div>
+			<div class="card"> <span class="tag">ID</span> <code>$('#mainTitle')</code> </div>
+			<div class="card"> <span class="tag">Attribute</span> <code>$('input[type="text"]')</code> </div>
+			<div class="card"> <span class="tag">Pseudo</span> <code>$('li:first')</code> </div>
+			<div class="card"> <span class="tag">Contains</span> <code>$("p:contains('title')")</code> </div>
+			<div class="card"> <span class="tag">Multiple</span> <code>$('.item, #mainTitle')</code> </div>
+		</div>
+		<div class="demo-box">
+			<p id="mainTitle">This is a <strong>title paragraph</strong>.</p>
+			<ul id="selectorList">
+				<li class="item">Alpha</li>
+				<li class="item special">Beta (special)</li>
+				<li class="item">Gamma</li>
+				<li class="item">Delta</li>
+			</ul>
+			<button id="highlightFirst">Highlight First</button>
+			<button id="highlightSpecial">Highlight .special</button>
+			<button id="countItems">Count Items</button>
+			<div id="selectorOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="domManip">
+		<h2>4. DOM Manipulation</h2>
+		<p>Common methods: <code>.text()</code>, <code>.html()</code>, <code>.append()</code>, <code>.prepend()</code>, <code>.remove()</code>, <code>.addClass()</code>, <code>.attr()</code>, <code>.css()</code>.</p>
+		<div class="demo-box">
+			<ul id="domList">
+				<li>Learn selectors</li>
+				<li>Manipulate DOM</li>
+				<li>Handle events</li>
+			</ul>
+			<button id="appendItem">Append Item</button>
+			<button id="prependItem">Prepend Item</button>
+			<button id="removeLast">Remove Last</button>
+			<button id="wrapList">Wrap List</button>
+			<button id="cloneFirst">Clone First</button>
+			<div id="domOutput" class="output"></div>
+		</div>
+		<pre><code>// Append new item
+$('#domList').append('<li>New (append)</li>');
+// Prepend new item
+$('#domList').prepend('<li>New (prepend)</li>');
+// Add class
+$('#domList').addClass('highlight');
+// Remove last item
+$('#domList li').last().remove();
+</code></pre>
+	</div>
+
+	<div class="section" id="traversal">
+		<h2>5. Traversal</h2>
+		<p>Navigate relationships: <code>.parent()</code>, <code>.parents()</code>, <code>.children()</code>, <code>.find()</code>, <code>.siblings()</code>, <code>.next()</code>, <code>.prev()</code>.</p>
+		<div class="demo-box" id="traverseZone">
+			<div class="outer"><div class="middle"><div class="inner">Inner Text</div></div></div>
+			<button id="findInner">Find .inner</button>
+			<button id="showParents">Show Parents</button>
+			<button id="listChildren">Children of .outer</button>
+			<div id="traverseOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="events">
+		<h2>6. Events</h2>
+		<p>Bind with <code>.on()</code>. Delegate for dynamic content: <code>$('#list').on('click','li',fn)</code>.</p>
+		<div class="demo-box">
+			<input type="text" id="nameField" placeholder="Type your name" />
+			<button id="greetBtn">Greet</button>
+			<form id="demoForm" style="margin-top:10px;">
+				<input type="email" id="emailField" placeholder="Enter email" required />
+				<button type="submit">Submit Form</button>
+			</form>
+			<div id="eventOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="effects">
+		<h2>7. Effects & Animation</h2>
+		<p>Built-ins: <code>.hide()</code>, <code>.show()</code>, <code>.fadeIn()</code>, <code>.fadeOut()</code>, <code>.slideToggle()</code>. Custom: <code>.animate()</code>.</p>
+		<div class="demo-box">
+			<div class="fade-target" id="fadeBox">Fade Target Box</div>
+			<div class="slide-target" id="slideBox" style="margin-top:10px;">Slide Target Box</div>
+			<div class="animate-box" id="animateBox" style="margin-top:14px;"></div>
+			<div class="flex-center" style="margin-top:10px;">
+				<button id="fadeToggle">Fade Toggle</button>
+				<button id="slideToggle">Slide Toggle</button>
+				<button id="animateMove">Animate Move</button>
+				<button id="animateReset">Reset</button>
+			</div>
+			<div id="effectsOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="ajax">
+		<h2>8. AJAX</h2>
+		<p>Load remote JSON using <code>$.get()</code> or full <code>$.ajax()</code>. Fallback shown if offline.</p>
+		<div class="demo-box">
+			<button id="loadPosts">Load Sample Posts</button>
+			<button id="loadSingle">Load Post #1</button>
+			<table id="postTable" class="hidden"><thead><tr><th>ID</th><th>Title</th></tr></thead><tbody></tbody></table>
+			<div id="ajaxOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="utilities">
+		<h2>9. Utilities</h2>
+		<p><code>$.each()</code>, <code>$.map()</code>, <code>$.grep()</code>, <code>$.extend()</code> simplify array/object work.</p>
+		<div class="demo-box">
+			<button id="utilRun">Run Utility Demo</button>
+			<div id="utilOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="chaining">
+		<h2>10. Chaining</h2>
+		<p>Most jQuery methods return the same selection – chain them for concise flows.</p>
+		<div class="demo-box">
+			<div id="chainTarget" style="padding:10px; background:#bbdefb; border-radius:6px;">Chain Me!</div>
+			<button id="runChain">Run Chain</button>
+			<div id="chainOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="plugin">
+		<h2>11. Plugin Pattern</h2>
+		<p>Extend <code>$.fn</code> to create reusable methods.</p>
+		<div class="demo-box">
+			<div class="plugin-target" id="pluginBox">Plugin Target</div>
+			<button id="applyPlugin">Apply Pulse Plugin</button>
+			<div id="pluginOutput" class="output"></div>
+		</div>
+		<pre><code>$.fn.pulse = function(times, speed){ /* implementation */ };</code></pre>
+	</div>
+
+	<div class="section" id="dataApi">
+		<h2>12. Data Storage</h2>
+		<p>Store arbitrary values with <code>.data(key,value)</code>. Retrieve with <code>.data(key)</code>.</p>
+		<div class="demo-box">
+			<div id="dataTarget" style="padding:8px; background:#c5e1a5; border-radius:6px;">Data Target</div>
+			<button id="storeData">Store Data</button>
+			<button id="readData">Read Data</button>
+			<div id="dataOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="practice">
+		<h2>13. Practice Challenges</h2>
+		<div class="challenge">
+			<strong>A:</strong> Append a list item & fade it in.<br />
+			<strong>B:</strong> Click list item toggles success class.<br />
+			<strong>C:</strong> Filter AJAX results (IDs &lt; 5).<br />
+			<strong>D:</strong> Write a fontGrow plugin.<br />
+			<strong>E:</strong> Chain: color change + fade + text update.
+		</div>
+		<div class="demo-box">
+			<ul id="practiceList"></ul>
+			<button id="addPracticeItem">Add Practice Item</button>
+			<button id="completeAll">Complete All</button>
+			<div id="practiceOutput" class="output"></div>
+		</div>
+	</div>
+
+	<div class="section" id="summary">
+		<h2>14. Summary & Key Points</h2>
+		<ul>
+			<li>Select, manipulate, traverse quickly.</li>
+			<li>Events unify input handling.</li>
+			<li>Effects & animation improve UX.</li>
+			<li>AJAX integrates remote data seamlessly.</li>
+			<li>Utilities simplify iteration & merging.</li>
+			<li>Plugins enable reuse.</li>
+			<li>Chaining keeps code concise.</li>
+		</ul>
+	</div>
+
+	<div class="section" id="consoleNote">
+		<h2>15. DevTools Console</h2>
+		<p>Try these in Console:</p>
+		<pre><code>$('.item').length;
+$('#selectorList li').each(function(i){ console.log(i, $(this).text()); });
+$('#domList').append('<li>Experiment</li>');
+$('#practiceList').children().addClass('success');
+</code></pre>
+	</div>
+</main>
+<footer>
+	&copy; 2025 Lecture 5 – jQuery Introduction. Explore more at <a class="ref" href="https://api.jquery.com/" target="_blank" rel="noopener">jQuery API Docs</a>.
+</footer>
+<script>
+$(function() {
+// Initialization log
+$(function(){ console.log('%cFull jQuery Lecture Loaded','color:#283593;font-weight:bold;'); });
+
+// Helper to display output
+function showOutput($el, html){ $el.html(html).fadeIn(180); }
+
+// Ready state demo
+$('#readyCheckBtn').on('click', function(){ showOutput($('#readyOutput'), 'Document readyState: <strong>'+document.readyState+'</strong>'); });
+
+// Selector demos
+$('#highlightFirst').on('click', function(){ $('#selectorList li').removeClass('highlight').first().addClass('highlight'); showOutput($('#selectorOutput'), 'First item highlighted.'); });
+$('#highlightSpecial').on('click', function(){ $('#selectorList li').removeClass('highlight'); $('#selectorList li.special').addClass('highlight'); showOutput($('#selectorOutput'), '.special item highlighted.'); });
+$('#countItems').on('click', function(){ showOutput($('#selectorOutput'), 'Total items: '+ $('#selectorList li').length ); });
+
+// DOM Manipulation
+$('#appendItem').on('click', function(){ $('#domList').append('<li class="added">New (append)</li>'); showOutput($('#domOutput'), 'Appended item.'); });
+$('#prependItem').on('click', function(){ $('#domList').prepend('<li class="added">New (prepend)</li>'); showOutput($('#domOutput'), 'Prepended item.'); });
+$('#removeLast').on('click', function(){ $('#domList li').last().remove(); showOutput($('#domOutput'), 'Removed last item.'); });
+$('#wrapList').on('click', function(){ if(!$('#domList').parent().hasClass('wrapped')) { $('#domList').wrap('<div class="wrapped" style="border:2px dashed #607d8b; padding:10px;"></div>'); showOutput($('#domOutput'), 'List wrapped.'); } else { showOutput($('#domOutput'), 'Already wrapped.'); } });
+$('#cloneFirst').on('click', function(){ const $clone=$('#domList li').first().clone().addClass('highlight'); $('#domList').append($clone); showOutput($('#domOutput'),'Cloned first item.'); });
+
+// Traversal
+$('#findInner').on('click', function(){ showOutput($('#traverseOutput'), 'Inner text: '+ $('#traverseZone').find('.inner').text()); });
+$('#showParents').on('click', function(){ const names=[]; $('.inner').parents().each(function(){ names.push(this.className||this.tagName); }); showOutput($('#traverseOutput'), 'Parents: '+ names.join(' → ')); });
+$('#listChildren').on('click', function(){ const kids=$('.outer').children().map(function(){ return this.className; }).get(); showOutput($('#traverseOutput'), 'Children of .outer: '+ kids.join(', ')); });
+
+// Events
+$('#greetBtn').on('click', function(){ const name=$('#nameField').val().trim(); if(!name){ showOutput($('#eventOutput'),'Please enter a name.'); return;} showOutput($('#eventOutput'),'Hello, <strong>'+ $('<div>').text(name).html()+'</strong>!'); });
+$('#nameField').on('keyup', function(){ $('#eventOutput').text('Typing: '+ $(this).val()).show(); });
+$('#demoForm').on('submit', function(e){ e.preventDefault(); showOutput($('#eventOutput'), 'Form submitted with '+ $('#emailField').val()); });
+
+// Effects & Animation
+$('#fadeToggle').on('click', function(){ $('#fadeBox').fadeToggle(400); });
+$('#slideToggle').on('click', function(){ $('#slideBox').slideToggle(400); });
+$('#animateMove').on('click', function(){ $('#animateBox').animate({ left:'+=120', width:'100px', height:'100px', opacity:0.7 },500).animate({ top:'+=40', borderRadius:'50%' },500); showOutput($('#effectsOutput'),'Animation run.'); });
+$('#animateReset').on('click', function(){ $('#animateBox').stop(true,true).css({ left:0, top:0, width:'80px', height:'80px', opacity:1, borderRadius:'8px' }); showOutput($('#effectsOutput'),'Animation reset.'); });
+
+// AJAX helpers
+function offlineFallback(){ return [ {id:1,title:'Offline: Intro'}, {id:2,title:'Offline: Selectors'}, {id:3,title:'Offline: Events'} ]; }
+$('#loadPosts').on('click', function(){ const $tb=$('#postTable tbody'); $tb.empty(); $.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
+.done(function(data){ data.forEach(p=> $tb.append('<tr><td>'+p.id+'</td><td>'+ $('<div>').text(p.title).html() +'</td></tr>')); $('#postTable').removeClass('hidden'); showOutput($('#ajaxOutput'),'Loaded '+data.length+' posts.'); }).fail(function(){ offlineFallback().forEach(p=> $tb.append('<tr><td>'+p.id+'</td><td>'+p.title+'</td></tr>')); $('#postTable').removeClass('hidden'); showOutput($('#ajaxOutput'),'Offline fallback used.'); }); })
+.error(function(){ showOutput($('#ajaxOutput'),'Failed to load posts.'); });
+$('#loadSingle').on('click', function(){ $.ajax({url:'https://jsonplaceholder.typicode.com/posts/1',method:'GET'}).done(function(res){ showOutput($('#ajaxOutput'),'Post #1: <strong>'+ $('<div>').text(res.title).html() +'</strong>'); }).fail(function(){ showOutput($('#ajaxOutput'),'Failed; fallback title.'); }); });
+
+// Utilities
+$('#utilRun').on('click', function(){ const arr=[1,2,3,4,5]; let eachStr=''; $.each(arr,function(i,v){ eachStr+=v+(i<arr.length-1?', ':''); }); const doubled=$.map(arr,v=>v*2); const even=$.grep(arr,v=>v%2===0); const merged=$.extend({}, {a:1},{b:2},{c:3}); showOutput($('#utilOutput'), 'Each: '+eachStr+'<br>Doubled: '+doubled.join(', ')+'<br>Even: '+even.join(', ')+'<br>Merged: '+JSON.stringify(merged)); });
+
+// Chaining
+$('#runChain').on('click', function(){ $('#chainTarget').removeClass('highlight').css({background:'#ffecb3'}).fadeOut(250).fadeIn(250).text('Chain Complete!').addClass('highlight'); showOutput($('#chainOutput'),'Chain executed.'); });
+
+// Plugin example
+$.fn.pulse=function(times,speed){ return this.each(function(){ const $el=$(this); let count=0; function cycle(){ $el.fadeOut(speed).fadeIn(speed,function(){ count++; if(count<times) cycle(); }); } cycle(); }); };
+$('#applyPlugin').on('click', function(){ $('#pluginBox').pulse(3,180); showOutput($('#pluginOutput'),'Pulse plugin ran 3 times.'); });
+
+// Data API
+$('#storeData').on('click', function(){ $('#dataTarget').data({level:3,topic:'jQuery'}); showOutput($('#dataOutput'),'Stored level=3 topic=jQuery'); });
+$('#readData').on('click', function(){ showOutput($('#dataOutput'),'Read: level='+ $('#dataTarget').data('level') +', topic='+ $('#dataTarget').data('topic')); });
+
+// Practice interactions
+let practiceIndex=1;
+$('#addPracticeItem').on('click', function(){ const $new=$('<li/>').text('Practice Item '+practiceIndex++).hide(); $('#practiceList').append($new); $new.fadeIn(300); showOutput($('#practiceOutput'),'Added item.'); });
+$('#practiceList').on('click','li', function(){ $(this).toggleClass('success'); });
+$('#completeAll').on('click', function(){ $('#practiceList li').addClass('success'); showOutput($('#practiceOutput'),'Marked all success.'); });
+
+// Accessibility focus outlines
+$('button').on('focus', function(){ $(this).css('outline','3px solid #ffb300'); }).on('blur', function(){ $(this).css('outline','none'); });
+})
+
+</script>
+</body>
+</html>
